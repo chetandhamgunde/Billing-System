@@ -75,69 +75,77 @@
 								</div>
 								
 								<div class="col-md-6 mb-2">
-    <label for="">Select Tables:</label>
-	<select class="form-multi-select form-control" id="tableSelect" multiple data-coreui-search="global">
-        <!-- Options will be added dynamically -->
-    </select>
-       
-	<style>
-    .selected-table {
-        position: relative;
-        background: #f8f9fa;
-        border-radius: 5px;
-        display: inline-block;
-        font-size: 14px;
-        border: 1px solid #ddd;
-        max-width: 150px;
-        text-align: center;
-        margin: 2px;
-    }
+									<label for="">Select Tables:</label>
+									<select class="form-multi-select form-control" id="tableSelect" multiple data-coreui-search="global">
+										<!-- Options will be added dynamically -->
+									</select>
+									
+									
+								<style>
+									.selected-table {
+										position: relative;
+										background: #f8f9fa;
+										border-radius: 5px;
+										display: inline-block;
+										font-size: 14px;
+										border: 1px solid #ddd;
+										max-width: 150px;
+										text-align: center;
+										padding: 5px;
+										margin: 5px;
+									}
 
-    .remove-table {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: red;
-        color: white;
-        width: 18px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+									.remove-table {
+										position: absolute;
+										top: -5px;
+										right: -5px;
+										background: red;
+										color: white;
+										width: 18px;
+										height: 18px;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										font-size: 14px;
+										font-weight: bold;
+										border-radius: 50%;
+										cursor: pointer;
+									}
 
-    .remove-table:hover {
-        background: darkred;
-    }
-	</style>
-    <!-- <button class="btn btn-primary mt-2" onclick="addTable()">Add Tables</button> -->
+									.remove-table:hover {
+										background: darkred;
+									}
+								</style>
+									<!-- <button class="btn btn-primary mt-2" onclick="addTable()">Add Tables</button> -->
 
-    <h4 class="mt-3">Selected Tables:</h4>
-    <div id="selectedTables" class="row"></div>
-</div>
-
-
+									<h4 class="mt-3">Selected Tables:</h4>
+									<div id="selectedTables" class="row"></div>
+								</div>
 								<div class="col-md-6 mb-2">
 									<label>Date & Time:</label>
 									<input type="datetime-local" class="form-control clear-field" id="datetime">
 								</div>
+								<script>
+									document.addEventListener("DOMContentLoaded", function () {
+										let now = new Date();
+										now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust for timezone
+										document.getElementById("datetime").value = now.toISOString().slice(0, 16);
+									});
+								</script>
 								<div class="col-md-6 mb-2">
 									<label>Waiter:</label>
 									<input type="text" id="waiterName" class="form-control clear-field" placeholder="Enter waiter name">
 								</div>
-								<div class="col-md-6 mb-2">
-									<label>Total Amount:</label>
-									<input type="text" id="totalAmount" class="form-control clear-field" placeholder="Enter total Amount">
-								</div>
-								<div class="col-md-6 mb-2">
-									<label>Discount %:</label>
-									<input type="number" placeholder="discount" min="0" max="100" id="discount" class="form-control clear-field" oninput="validateDiscount(this); calculateFinalTotal(); updateDiscountMessage();">
-									<small id="discountMessage" class="text-muted"></small> <!-- Message area -->
-								</div>
+
+								<div class="col-md-6">
+											<label>CGST %:</label>
+											<input type="number" placeholder="CGST" id="cgst" class="form-control clear-field" oninput="calculateFinalTotal()">
+										</div>
+										<div class="col-md-6">
+											<label>SGST %:</label>
+											<input type="number" placeholder="SGST" id="sgst" class="form-control clear-field" oninput="calculateFinalTotal()">
+										</div>
+							
 								<!-- SCRIPT TO VALIDTAE AND SHOW THE DISCOUNT IN RUPEES -->
 								<script>
 									function validateDiscount(input) {
@@ -166,7 +174,7 @@
 
 							<!-- Items and Tax Details -->
 							<div class="row mt-3">
-								<div class="col-md-6 bg-light p-3 rounded">
+								<div class="col-md-12 bg-light p-3 rounded">
 									<h6>Items</h6>
 									<table class="table">
 										<thead>
@@ -181,30 +189,26 @@
 										<tbody id="itemList">
 										</tbody>
 									</table>
+									
 									<button class="btn btn-warning no-print" onclick="addItem(); ">Add Item</button>
+									<div class="col-md-6 mb-2">
+								</div>
+								
 								</div>
 								<div class="col-md-6 bg-light p-3 rounded">
 									<h6>Tax Details</h6>
 									<div class="row">
-										<div class="col-md-6">
-											<label>CGST %:</label>
-											<input type="number" placeholder="CGST" id="cgst" class="form-control clear-field" oninput="calculateFinalTotal()">
-										</div>
-										<div class="col-md-6">
-											<label>SGST %:</label>
-											<input type="number" placeholder="SGST" id="sgst" class="form-control clear-field" oninput="calculateFinalTotal()">
-										</div>
-										<div class="col-md-12 mt-2">
-											<label>Final Amount:</label>
-											<input type="text" id="finalAmount" class="form-control" readonly>
-										</div>
+									<div class="col-md-6">
+										<label>Total Amount:</label>
+											<input type="text" id="totalAmount" class="form-control clear-field" placeholder="Enter total Amount">
+									</div>
+									<div class="col-md-6">
+										<label>Final Amount:</label>
+										<input type="text" id="finalAmount" class="form-control" readonly>
+									</div>
 									</div>
 								</div>
 							</div>
-
-
-
-
 
 							<!-- Action Buttons -->
 							<div class="text-center mt-3 no-print">
@@ -212,22 +216,13 @@
 								<button class="btn btn-light border" onclick="clearFields()">Clear</button>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-
-
-
 	<!-- Include SweetAlert2 CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
-
 	<script>
 		function validateInvoice() {
 			let billNo = document.getElementById("billNo").value.trim();
@@ -449,7 +444,7 @@
 	</script>
 
 	<!-- SCRIPT TO ADD TABLE -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 	<script>
 		  let tables = <?php echo json_encode($tables); ?>;
@@ -501,13 +496,39 @@
             if (option.value == tableId) option.selected = false;
         });
     }
-	</script>
+	</script> -->
 
+	<!-- Add required libraries -->
+<!-- Add required libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let tables = <?php echo json_encode($tables); ?>;
+    let tableDropdown = document.getElementById("tableSelect");
+    
+    // Ensure tables array is not empty
+    if (!tables || tables.length === 0) {
+        console.error("No tables found!");
+        return;
+    }
 
+    // Populate dropdown with table options
+    tables.forEach(table => {
+        let option = new Option(`${table.table_number} (Seats: ${table.seats})`, table.id);
+        tableDropdown.add(option);
+    });
 
-
-
+    // Initialize Choices.js for better multi-select
+    new Choices(tableDropdown, {
+        removeItemButton: true,
+        allowHTML: true,
+        placeholder: true,
+        searchEnabled: true
+    });
+});
+</script>
 	<style>
 		@media print {
 			.container {
@@ -540,9 +561,6 @@
 		}
 	</style>
 
-
-
-
 	<script>
 		function printBill() {
 			console.log("Starting printBill...");
@@ -550,6 +568,7 @@
 
 			// Mapping table_number to table_id
 			const tableMapping = <?php echo json_encode($tables); ?>;
+	
 
 			// Capture the selected table numbers and map them to table IDs
 			let tableNumbers = Array.from(document.querySelectorAll("#selectedTables .card-title"))
@@ -558,9 +577,10 @@
 			// Map table numbers to table IDs
 			let tableIds = tableNumbers.map(tableNumber => {
 				let table = tableMapping.find(t => t.table_number === tableNumber);
+				
 				return table ? table.id : null;
 			}).filter(id => id !== null); // Filter out any invalid table ids (in case of unmatched table numbers)
-
+				console.log("Table IDs:", tableIds);
 			if (tableIds.length === 0) {
 				Swal.fire("Error", "Please select at least one table", "error");
 				return;

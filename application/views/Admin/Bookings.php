@@ -192,8 +192,6 @@
             /* More prominent purple border */
         }
 
-
-
         /* Pills Container */
         .nav-pills {
             display: flex;
@@ -209,11 +207,6 @@
             }
         }
     </style>
-
-
-
-
-
 </head>
 
 <body class="show-sidebar bg-light">
